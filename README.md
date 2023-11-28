@@ -1,4 +1,5 @@
 VOX eCommerce Website
+
 VOX is a Node.js-based eCommerce website built with Express and EJS.
 
 Features
