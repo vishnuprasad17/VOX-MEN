@@ -1,0 +1,139 @@
+<%- include('../includes//admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="/css/admin/heading.css">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+        <main style="margin-top: 108px;">
+            <section>
+                <div class="container">
+                    <div class="mb-5 mt-5">
+                        <span class="heading">BANNER</span>
+                        <div class="banner-1">
+                            <div class="mt-5">
+
+
+                                <div class="mt-1">
+                                    <% if(banner.length>0) {%>
+                                        <p class="h4">Top Banner</p>
+                                        <img src="/images/banner-images/<%=banner[0].image %>" class="img-fluid" alt=""
+                                            style="max-width: 60%;">
+
+                                        <form action="/admin/addUpdateImage" method="post"
+                                            enctype="multipart/form-data">
+                                            <input type="text" name="name" id="" value="banner1" hidden>
+                                            <div class="mb-3 mt-3">
+                                                <label for="">Url: </label>
+                                                <input type="text" name="url" id="editableInput" placeholder="Enter url"
+                                                    value="<%=banner[0].url  %>" readonly>
+                                                <button type="button" id="editButton" class="border-0"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button>
+
+
+                                            </div>
+                                            <input type="file" accept="image/*" name="image"><br>
+                                            <button class="btn btn-secondary mt-3" type="submit">
+                                                Update Banner
+                                            </button>
+                                        </form>
+                                        <% }else{ %>
+
+                                            <div style="display: grid; place-content: center;">
+                                                <div class="card p-4">
+                                                    <div class="text-center">
+                                                        <h4>Main Image</h4>
+                                                    </div>
+                                                    <form action="/admin/addUpdateImage" method="post"
+                                                        enctype="multipart/form-data">
+                                                        <input type="text" name="name" id="" value="banner1" hidden>
+
+                                                        <div class="mt-3 mb-3">
+                                                            <label for="">Url: </label>
+                                                            <input type="text" name="url" id="" placeholder="Enter url"
+                                                                required>
+
+                                                            &nbsp;<input type="file" accept="image/*" name="image"
+                                                                class="mt-3 mt-sm-0" required><br>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <button class="btn btn-dark mt-3" type="submit">
+                                                                Add Top Banner
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="banner-2">
+                            <div class="mt-5">
+                                <div class="mt-1">
+                                    <% if(banner.length>1) {%>
+                                        <p class="h4">Second Banner</p>
+
+                                        <img src="/images/banner-images/<%=banner[1].image %>" class="img-fluid" alt=""
+                                            style="max-width: 60%;">
+
+                                        <form action="/admin/addUpdateImage" method="post"
+                                            enctype="multipart/form-data">
+                                            <input type="text" name="name" id="" value="banner2" hidden>
+
+                                            <div class="mt-3 mb-3">
+                                                <label for="">Url: </label>
+                                                <input type="text" name="url" id="editableInput2"
+                                                    placeholder="Enter url" value="<%=banner[1].url  %>" readonly>
+                                                <button type="button" id="editButton2" class="border-0"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button>
+                                            </div>
+                                            <input type="file" accept="image/*" name="image"><br>
+                                            <button class="btn btn-secondary mt-3" type="submit">
+                                                Update Second Banner
+                                            </button>
+                                        </form>
+                                        <% }else {%>
+
+                                            <div style="display: grid; place-content: center;">
+                                                <div class="card p-4 ">
+                                                    <div class="text-center">
+                                                        <h4>Second Image</h4>
+                                                    </div>
+                                                    <form action="/admin/addUpdateImage" method="post"
+                                                        enctype="multipart/form-data">
+                                                        <input type="text" name="name" id="" value="banner2" hidden>
+
+                                                        <div class="mt-3 mb-3">
+                                                            <label for="">Url: </label>
+                                                            <input type="text" name="url" id="" placeholder="Enter url"
+                                                                required>
+
+                                                            &nbsp;<input type="file" accept="image/*" name="image"
+                                                                class="mt-3 mt-sm-0" required><br>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <button class="btn btn-dark mt-3" type="submit">
+                                                                Add Second Banner
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </body>
+    <script src="/javascript/admin/bannerUrlEdit.js"></script>
+
+    <%- include('../includes/admin/adminFooter.ejs') %>

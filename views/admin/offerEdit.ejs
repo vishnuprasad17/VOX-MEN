@@ -1,0 +1,65 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/admin/heading.css">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 78px;">
+
+            <section class="">
+                <div class="container py-4 h-100">
+                    <div class="row pt-5 d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="card cardbody-color">
+                    <span class="heading mt-3">EDIT OFFER</span>
+
+                                <div class="card-body p-5">
+
+                                    <form action="/admin/editOffer/<%=offerData._id  %>" method="post">
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="typeEmailX-2">Name</label>
+                                            <input type="text" id="typeEmailX-2"
+                                                class="form-control  form-control-lg rounded-0" placeholder="Enter name"
+                                                name="name" value="<%=offerData.name  %>" required />
+                                            <small class="text-danger">
+                                                <%=offerExists %>
+                                            </small>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="discount">Discount</label>
+                                            <input type="number" id="discount"
+                                                class="form-control form-control-lg rounded-0"
+                                                placeholder="Discount percentage" name="discount" min="1"
+                                                value="<%=offerData.discount  %>" required />
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="expiryDate">Expiry
+                                                <% const dd=offerData.expiryDate.getDate(); const
+                                                    mm=offerData.expiryDate.getMonth() + 1; const
+                                                    yyyy=offerData.expiryDate.getFullYear(); const
+                                                    formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                                    (<%=formattedDate%>)
+                                            </label>
+                                            <input type="date" id="expiryDate"
+                                                class="form-control form-control-lg rounded-0" placeholder=""
+                                                name="expiryDate" />
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-md rounded-0 login-btn btn-dark" type="submit">ADD</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="/javascript/admin/coupon.js"></script>
+    <%- include('../includes/admin/adminFooter.ejs') %>

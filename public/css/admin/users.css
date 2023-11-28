@@ -1,0 +1,31 @@
+/* a {
+    text-align: center;
+    font-family: Nunito Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+    text-transform: uppercase;
+    width: 106px;
+    height: 31px;
+    flex-shrink: 0;
+    
+} */
+.block-btn{
+    background-color: #d61313;
+    color: white;
+}
+.unBlock-btn{
+    background-color: rgb(47, 0, 203);
+    color: white;
+}
+.heading{
+    color: #000;
+text-align: center;
+font-family: Nunito Sans;
+font-size: 32px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 75% */
+text-transform: uppercase;
+}

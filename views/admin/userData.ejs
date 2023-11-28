@@ -1,0 +1,119 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+  <link rel="stylesheet" href="/css/admin/users.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/css/admin/navBar.css ">
+  </head>
+
+  <body>
+    <%- include('../includes/admin/sidebar.ejs') %>
+      <main style="margin-top: 108px;">
+        <div class="container mb-4">
+          <div class="mt-5 mb-5">
+            <span class="heading">ALL CUSTOMERS</span>
+
+          </div>
+          <div class=" table-responsive">
+            <table class="table text-center  align-items-center" id="sortTable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Mobile</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(userData.length>0){
+                  for(let i=0;i<userData.length;i++){%>
+
+                    <tr class="align-middle">
+                      <th scope="row">
+                        <%= i+1%>
+                      </th>
+                      <td>
+                        <%= userData[i].fname%>
+                      </td>
+                      <td>
+                        <%= userData[i].mobile%>
+                      </td>
+                      <td>
+                        <%= userData[i].email%>
+                      </td>
+                      <% const dd=userData[i].date.getDate(); const mm=userData[i].date.getMonth() + 1; const
+                        yyyy=userData[i].date.getFullYear(); const formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                        <td>
+                          <%= formattedDate%>
+                        </td>
+
+                        <%if(userData[i].status===true){%>
+
+                          <td>
+                            <a href="#confirmationPopUp" class="btn rounded-0 block-btn modalBTN" data-bs-toggle="modal"
+                              data-id="<%= userData[i]._id %>">BLOCK</a>
+
+
+                          </td>
+                          <%}else{%>
+                            <td><a href="#confirmationPopUp" data-id="<%= userData[i]._id %>" data-bs-toggle="modal"
+                                class="btn rounded-0 unBlock-btn modalBTN">UNBLOCK</a>
+                            </td>
+
+                            <%}%>
+
+
+                              <div class="modal fade" id="confirmationPopUp" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <strong> Do you want to Block/Unblock this user ?</strong>
+                                      <div class="modal-footer mt-2">
+                                        <button type="button" class="btn btn-secondary"
+                                          data-bs-dismiss="modal">Close</button>
+                                        <a id="confirmBTN" class="btn btn-dark">Confirm</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                    </tr>
+                    <% } } else{%>
+                      <tr>
+                        <td>Users not found</td>
+                      </tr>
+                      <% }%>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+  <script>
+    $('#sortTable').DataTable();
+  </script>
+  <script>
+    $('.modalBTN').click(function () {
+      var userId = $(this).data('id');
+      var routeURL = '/admin/status/' + userId
+      $(".modal-footer #confirmBTN").attr('href', routeURL);
+    });
+  </script>
+
+
+
+<%- include('../includes/admin/adminFooter.ejs') %>

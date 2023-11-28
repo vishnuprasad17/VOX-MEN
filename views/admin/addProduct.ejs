@@ -1,0 +1,188 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="/css/login.css ">
+    <link rel="stylesheet" href="/css/admin/add-prod.css ">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 78px;">
+                <section class="vh-100">
+                    <div class="container py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12 col-md-9 col-sm-12">
+                                <div class="shadow-2-strong">
+                                    <div class="container">
+                                        <span class="add-product">ADD PRODUCT</span>
+                                    </div>
+                                    <div class=" p-5 ">
+
+                                        <form action="/admin/product/addProduct" method="post" id="myForm"
+                                            enctype="multipart/form-data" id="productForm">
+
+
+                                            <div class="form-outline mb-3 row ">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <label class="form-label" for="brand">Brand</label>
+                                                    <input type="text" class="form-control form-control-md rounded-0"
+                                                        id="brand" placeholder="Brand" name="brand"
+                                                        style='text-transform:uppercase' required />
+                                                        <small id="brandError"></small>
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <label class="form-label" for="lname">Product Name</label>
+                                                    <input type="text" class="form-control form-control-md rounded-0"
+                                                        id="name" placeholder="Product name" name="name" required />
+                                                        <small id="productNameError"></small>
+                                                </div>
+                                            </div>
+                                            <div class="form-outline mb-3 row">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <div class="row">
+                                                        <div>
+                                                            <label class="form-label" for="category">Category</label>
+                                                            <select id="category" class="form-control" name="category">
+                                                                <% if(category.length>0){ for(let i=0;i
+                                                                    <category.length;i++){%>
+                                                                        <option id="<%=category[i]._id  %>"
+                                                                            name="<%=category[i]._id  %>">
+                                                                            <%= category[i].name %>
+                                                                        </option>
+                                                                        <% }}else{ %>
+                                                                            <option value="">No categories</option>
+                                                                            <% } %>
+                                                            </select>
+                                                            <small id="categoryError"></small>
+                                                        </div>
+                                                        <div class="mt-4">
+                                                            <label class="form-label" for="price">Price</label>
+                                                            <input type="number"
+                                                                class="form-control form-control-md rounded-0"
+                                                                type="number" id="priceid" placeholder="price"
+                                                                name="price" min="0" required />
+                                                                <small id="priceError"></small><span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <label class="form-label" for="description">Description</label>
+                                                    <textarea type="text" rows="5"
+                                                        class="form-control form-control-md rounded-0" id="description"
+                                                        placeholder="" name="description" required></textarea>
+                                                        <small id="descriptionError"></small>
+                                                </div>
+                                            </div>
+                                            <div class="form-outline mb-3 row">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <label class="form-label" for="dprice">Discount Price</label>
+                                                    <input type="number" class="form-control form-control-md rounded-0"
+                                                        type="number" id="discountprice" class="form-control"
+                                                        placeholder="Discount price" name="dPrice" min="0" required />
+                                                        <small id="discountPriceError"></small>
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <div class="row">
+                                                        <label class="form-check-label">Size :&nbsp;</label>
+                                                        <div class="col-md-6 mt-3" id="size-character">
+                                                            <input class="form-check-input" type="checkbox" value="XS"
+                                                                id="check1" name="check1"
+                                                                onclick="handleCheckboxChange1()">
+                                                            <label class="form-check-label" for="check1">XS</label>
+                                                            <input class="form-check-input" type="checkbox" value="S"
+                                                                id="check2" name="check2"
+                                                                onclick="handleCheckboxChange1()">
+                                                            <label class="form-check-label" for="check2">S</label>
+                                                            <input class="form-check-input" type="checkbox" value="M"
+                                                                id="check3" name="check3"
+                                                                onclick="handleCheckboxChange1()">
+                                                            <label class="form-check-label" for="check3">M</label>
+                                                            <input class="form-check-input" type="checkbox" value="L"
+                                                                id="check4" name="check4"
+                                                                onclick="handleCheckboxChange1()">
+                                                            <label class="form-check-label" for="check4">L</label>
+                                                            <input class="form-check-input" type="checkbox" value="XL"
+                                                                id="check5" name="check5"
+                                                                onclick="handleCheckboxChange1()">
+                                                            <label class="form-check-label" for="check5">XL</label>
+                                                            <input class="form-check-input" type="checkbox" value="XXL"
+                                                                id="check6" name="check6"
+                                                                onclick="handleCheckboxChange1()">
+                                                            <label class="form-check-label" for="check6">XXL</label>
+                                                        </div>
+
+                                                        <div class="col-md-6 mt-3" id="size-number">
+                                                            <input class="form-check-input" type="checkbox" value="5"
+                                                                id="check1" name="check1"
+                                                                onclick="handleCheckboxChange()">
+                                                            <label class="form-check-label" for="">5</label>
+                                                            <input class="form-check-input" type="checkbox" value="6"
+                                                                id="check2" name="check2"
+                                                                onclick="handleCheckboxChange()">
+                                                            <label class="form-check-label" for="">6</label>
+                                                            <input class="form-check-input" type="checkbox" value="7"
+                                                                id="check3" name="check3"
+                                                                onclick="handleCheckboxChange()">
+                                                            <label class="form-check-label" for="">7</label>
+                                                            <input class="form-check-input" type="checkbox" value="8"
+                                                                id="check4" name="check4"
+                                                                onclick="handleCheckboxChange()">
+                                                            <label class="form-check-label" for="">8</label>
+                                                            <input class="form-check-input" type="checkbox" value="9"
+                                                                id="check5" name="check5"
+                                                                onclick="handleCheckboxChange()">
+                                                            <label class="form-check-label" for="">9</label>
+                                                            <input class="form-check-input" type="checkbox" value="10"
+                                                                id="check6" name="check6"
+                                                                onclick="handleCheckboxChange()">
+                                                            <label class="form-check-label" for="">10</label>
+                                                        </div>
+                                                        <small id="sizeError"></small>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-outline mb-3 row">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <label class="form-label" for="password">Quantity</label>
+                                                    <input class="form-control form-control-md rounded-0" type="Number"
+                                                        id="quantity" placeholder="Quantity" name="quantity" min="0"
+                                                        required />
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <label class="form-label" for="cPassword">Choose product
+                                                        images</label>
+                                                    <div class="d-flex align-items-center">
+
+                                                        <input type="file" class="form-control-file" id="image"
+                                                            name="image" single accept="image/*" required>
+
+
+                                                        <input type="file" class="form-control-file" id="image"
+                                                            name="image" single accept="image/*" required>
+
+
+                                                        <input type="file" class="form-control-file" id="image"
+                                                            name="image" single accept="image/*" required>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <button class="btn btn-md rounded-0 login-btn btn-dark" type="submit" onclick="return validateForm()">ADD
+                                                    PRODUCT</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <script src="/javascript/admin/addProduct.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    </body>
+    <%- include('../includes/admin/adminFooter.ejs') %>

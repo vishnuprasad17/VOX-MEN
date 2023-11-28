@@ -1,0 +1,150 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    </head>
+
+    <body>
+        <div class="main-top-section">
+
+            <%- include('../includes/user/header.ejs') %>
+                <section class="container mb-5">
+                    <div class="mt-5">
+                        <h1>MY ACCOUNT</h1>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-4">
+
+                            <div class="card pb-3 position-relative" style="background-color: aliceblue;">
+                                <div class="card-body d-flex flex-column align-items-center text-center">
+                                    <img src="/images/about/profile.icon.webp" class="img-fluid" alt="" style="width: 6rem;">
+                                    <div class="mt-3">
+                                        <h5 class="fw-bold fs-5 mb-0"><%=userData.fname %></h5>
+                                        <h6 class="fs-6"><%=userData.email %></h6>
+                                    </div>
+                                </div>
+                                <div class="position-absolute bottom-0 end-0 m-3">
+                                    <div class="logout-btn">
+                                        <% if(locals.user) { %>
+                                            <form action="/logout" method="post">
+                                                <button class="btn btn-sm btn-dark btn-custom mt-5" type="submit">Logout</button>
+                                            </form>
+                                        <% } %>                                
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-3 mb-3">
+                                <div class="card-body" style="background-color: aliceblue; min-height: 12rem;">
+                                    <div class="">
+                                        <h4>Address</h4>
+                                    </div>
+
+                                    <% if(userAddress && userAddress.address.length>0){ %>
+                                        <div>
+                                            <small>Name:<%=userAddress.address[0].name %></small><br>
+                                            <small>Mobile:<%=userAddress.address[0].mobile %></small><br>
+                                            <small>Address: <%=userAddress.address[0].address %></small><br>
+                                            <small>Town: <%=userAddress.address[0].town %></small><br>
+                                            <small>Pincode: <%=userAddress.address[0].pincode %></small><br>
+                                            <small>State: <%=userAddress.address[0].state %></small>
+                                        </div>
+                                        <% }else{%>
+                                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                                <small>No address is currently saved</small>
+                                                <a class="mt-3 text-primary" href="/manage-address">Add address</a>
+
+                                            </div>
+                                            <% } %>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card " style="background-color: aliceblue;">
+                                <div class="card-body">
+                                    <h5>First name: <%=userData.fname %>
+                                    </h5>
+                                    <hr>
+                                    <h5>Last name: <%=userData.lname %>
+                                    </h5>
+                                    <hr>
+                                    <h5>Mobile: <%=userData.mobile %>
+                                    </h5>
+                                    <hr>
+                                    <h5>Email: <%=userData.email %>
+                                    </h5>
+                                    <hr>
+                                    Refer and get <strong> ₹500</strong> | <a
+                                        onclick="copyReferral('http://localhost:3000/signup?referral=<%=userData.referralCode%>')"
+                                        style="cursor: pointer;">
+                                        <span class="">Referral link: <i class="bi bi-link-45deg text-primary"></i></a>
+                                    <small class="ms-2 text-success" id="copied"></small>
+                                    </span>
+
+
+
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card p-3" style="background-color: rgb(179, 205, 182);">
+                                        <h4>Wallet</h4>
+                                        <div>
+                                            <p>
+                                                <%=userData.fname %>
+                                                    <%=userData.lname %>
+                                            </p>
+                                            <p>Available Balance</p>
+                                            <h3>₹ <%=Math.round(userData.wallet) %>
+                                            </h3>
+                                            <span class="text-success"><a href="/walletHistory">Wallet
+                                                    History</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 bd-danger">
+                                    <div class="mb-3">
+                                        <a href="/edit-profile" style="width: 100%;"
+                                            class="btn btn-dark rounded-0">EDIT
+                                            PROFILE</a>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <a href="/change-password" style="width: 100%;"
+                                            class="btn btn-dark rounded-0">CHANGE PASSWORD</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a href="/manage-address" style="width: 100%;"
+                                            class="btn btn-dark rounded-0">MANAGE ADDRESS</a>
+                                    </div>
+                                    <div>
+                                        <a href="/orders" style="width: 100%;"
+                                            class="btn btn-dark rounded-0">ORDERS</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+        
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </section>
+        </div>
+        </div>
+
+        <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <script>
+        function copyReferral(referralCode) {
+            document.getElementById('copied').innerHTML = "COPIED!"
+            navigator.clipboard.writeText(referralCode);
+        }
+    </script>
+    <%- include('../includes/user/userFooter.ejs') %>

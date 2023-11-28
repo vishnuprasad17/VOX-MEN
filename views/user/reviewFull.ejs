@@ -1,0 +1,133 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="/css/user/product-view.css"> -->
+    </head>
+
+    <body>
+        <div class="main-top-section">
+
+        <%- include('../includes/user/header.ejs') %>
+
+            <section>
+                <div class="container mt-5">
+                    <h1>All Reviews & Ratings</h1>
+                    <div class="row mt-5">
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="image">
+                                    <a href="/product?id=<%=prod._id  %>"><img src="/productImages/<%=prod.images[0]  %>" class="img-fluid" alt=""></a>
+                                </div>
+                                <div class="content p-3">
+                                    <div class="d-lg-flex d-flex d-md-block justify-content-between">
+                                        <div class="brand">
+                                            <span>
+                                                <%=prod.brand %>
+                                            </span>
+                                        </div>
+                                        <div class="rating">
+                                            <% if(prod.reviews && prod.reviews.length>0) {%>
+                                                <% for(let i=1;i<=5;i++){ %>
+                                                    <% if(i>prod.totalRating){ %>
+                                                        <i class="bi bi-star"></i>
+
+                                                        <% }else if(!Number.isInteger(prod.totalRating)&&
+                                                            ((parseInt(prod.totalRating+1))==i)){ %>
+                                                            <i class="fas fa-star-half-alt"></i>
+
+                                                            <% }else{ %>
+
+                                                                <i class="fas fa-star"></i>
+                                                                <% } %>
+
+                                                                    <% } %>
+                                                                        <span id="rating-number">
+                                                                            <%=prod.totalRating%>
+                                                                        </span><span>(<%=prod.reviews.length %>)</span>
+                                                                        <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="prod-content">
+                                        <h4>
+                                            <%=prod.name %>
+                                        </h4>
+                                        <div class="price ">
+                                            <span class="h4">₹<%=prod.dPrice%>
+                                            </span>
+                                            <span class="h6 me-2" style="text-decoration:line-through ; color: grey;">
+                                                <%=prod.price%>
+                                            </span>
+                                            <span class="h6" style="color: rgb(1, 177, 1);">
+                                                <%= Math.floor(((prod.price-prod.dPrice)/((prod.dPrice+prod.price)/2))*100)
+                                                    %>%
+                                            </span><span>Off</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-8">
+                            <% for(let i=0;i<prod.reviews.length;i++) {%>
+                                <div class="col-12 mb-3">
+                                    <div class="p-3" style="border: 1px solid rgb(222, 222, 222);">
+                                        <div class=" ">
+                                            <div class="d-flex align-items-center">
+
+                                                <div <% if(prod.reviews[i].rating>2) {%>
+                                                    style="background-color: rgb(17, 201, 0);border-radius:
+                                                    4px;padding: 2px 5px;"<% } else if(prod.reviews[i].rating==2){%>
+                                                        style="background-color: rgb(255,
+                                                        150,13);border-radius:4px;padding: 2px 5px;"
+
+
+                                                        <% } else if(prod.reviews[i].rating==1){%>
+                                                            style="background-color: rgb(237, 40,
+                                                            33);border-radius:4px;padding: 2px 5px;"
+
+
+                                                            <%}%>>
+                                                                <span class="text-white">
+                                                                    <%=prod.reviews[i].rating %> <i
+                                                                            class="bi bi-star-fill text-white"></i>
+                                                                </span>
+                                                </div>
+                                                <strong class="ms-2" style="font-size: 1.2rem;">
+                                                    <%=prod.reviews[i].title %>
+                                                </strong>
+                                            </div>
+                                            <div class="review-content mt-2">
+                                                <span class="">
+                                                    <%=prod.reviews[i].description %>
+                                                </span><br>
+                                                <span class="text-secondary" style="font-size: .8rem;"><strong
+                                                        class=" text-uppercase ">
+                                                        <%=prod.reviews[i].userId.fname %>
+                                                            <%=prod.reviews[i].userId.lname %>&nbsp;<i
+                                                                    class="bi bi-patch-check-fill  me-2"></i>
+                                                    </strong>Certified
+                                                    Buyer,<% const dd=prod.reviews[i].createdAt.getDate(); const
+                                                        mm=prod.reviews[i].createdAt.getMonth() + 1; const
+                                                        yyyy=prod.reviews[i].createdAt.getFullYear(); const
+                                                        formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                                        <span>
+                                                            <%=formattedDate %>
+                                                        </span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <%- include('../includes/user/userFooter.ejs') %>

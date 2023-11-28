@@ -1,0 +1,52 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/login.css">
+    </head>
+
+    <body>
+        <div class="main-top-section">
+
+        <%- include('../includes/user/header.ejs') %>
+
+            <section class="">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="card shadow-2-strong cardbody-color">
+                                <div class="card-body p-5">
+                                    <div class="text-center">
+                                        <h3 class="mb-5">OTP VERIFICATION</h3>
+                                    </div>
+                                    <form action="/OTPLogin" method="post">
+                                        <input type="hidden" name="fname" id="" value="<%=fname  %>">
+                                        <input type="hidden" name="lname" id="" value="<%=lname  %>">
+                                        <input type="hidden" name="email" id="" value="<%=email  %>">
+                                        <input type="hidden" name="mobile" id="" value="<%=mobile  %>">
+                                        <input type="hidden" name="password" id="" value="<%=password  %>">
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="otp">Enter OTP (otp has been sent to your
+                                                email)</label>
+                                            <input type="number" class="form-control form-control-lg rounded-0" id="otp"
+                                                placeholder="Enter your OTP" name="otp" required />
+                                        </div>
+                                        <div>
+                                            <small style="color: red;">
+                                                <%=locals.message?message:'' %>
+                                            </small>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-md rounded-0 login-btn btn-dark" type="submit">SUBMIT</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+
+    <%- include('../includes/user/userFooter.ejs') %>

@@ -1,0 +1,60 @@
+<header>
+    <!-- Sidebar -->
+    <nav class="collapse collapse d-lg-block sidebar bg-dark" id="navbarSupportedContent">
+        <!-- <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white"> -->
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a href="/admin" class="list-group-item list-group-item-action py-3 ripple" aria-current="true">
+                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+                </a>
+
+                <a href="/admin/users" class="list-group-item list-group-item-action py-3 ripple"><i
+                        class="fas fa-users fa-fw me-3"></i><span>Customers</span></a>
+                <a href="/admin/products" class="list-group-item list-group-item-action py-3 ripple"><i
+                        class="fas fa-chart-line fa-fw me-3"></i><span>Products</span></a>
+                <a href="/admin/category" class="list-group-item list-group-item-action py-3 ripple">
+                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>Category</span>
+                </a>
+                <a href="/admin/orders" class="list-group-item list-group-item-action py-3 ripple"><i
+                        class="fas fa-money-bill fa-fw me-3"></i><span>Orders</span></a>
+                <a href="/admin/coupon" class="list-group-item list-group-item-action py-3 ripple"><i class="fa-solid fa-tag ms-1 me-3" ></i><span>Coupon</span></a>
+                <a href="/admin/offers" class="list-group-item list-group-item-action py-3 ripple"><i
+                        class="fas fa-building fa-fw me-3"></i><span>Offer</span></a>
+                <a href="/admin/banner" class="list-group-item list-group-item-action py-3 ripple"><i class="fa-solid fa-image ms-1 me-3" ></i><span>Banner</span></a>
+                <form action="/admin/logout" method="post">
+                    <button type="submit" class="btn text-white w-100 mt-3 p-2 bg-dark "
+                        ><i class="bi bi-box-arrow-right"></i>&nbsp; LOG OUT</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-dark fixed-top" style="border-bottom: 3px solid rgb(255, 243, 9);">
+        <div class="container-fluid">
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Brand -->
+            <a class="navbar-brand text-start" href="/admin">
+                <img src="/footer-logo.png" height="45" alt="VOX Logo" loading="lazy" class="me-3" />
+            </a>
+    
+            <!-- Centered Admin Panel -->
+            <div class="d-flex justify-content-center align-items-center flex-grow-1">
+                <span class="text-center fs-5">ADMIN PANEL</span>
+            </div>
+    
+            <!-- Avatar -->
+            <!-- <form action="/admin/logout" method="post">
+                <button type="submit" class="btn text-white p-2 bg-dark"><i class="bi bi-box-arrow-right"></i>&nbsp; LOG OUT</button>
+            </form> -->
+    
+        </div>
+    </nav>    
+
+    <!-- Navbar -->
+</header>

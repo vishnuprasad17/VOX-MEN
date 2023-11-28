@@ -1,0 +1,39 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <style>
+        .mainDiv {
+            height: 70vh;
+            display: grid;
+            place-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <body>
+        <div class="main-top-section">
+
+        <%- include('../includes/user/header.ejs') %>
+
+            <div class="mainDiv text-center container">
+                <h1>Order Success.</h1>
+                <span>Your order will be delivered soon!</span><br>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="130px" width="130px" version="1.1" id="Capa_1" viewBox="0 0 52 52" xml:space="preserve">
+                        <g>
+                            <path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26   S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"/>
+                            <path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406   l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411   C39.251,14.885,38.62,14.922,38.252,15.336z"/>
+                        </g>
+                        </svg>
+                </div>
+                <div class="mt-4">
+                    <br><a href="/orders" class="btn btn-warning me-2 mb-3">Go to Orders</a>
+                    <a href="/shop" class="btn btn-dark mb-3">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <%- include('../includes/user/userFooter.ejs') %>

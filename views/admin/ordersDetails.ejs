@@ -1,0 +1,140 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/admin/heading.css">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 108px;">
+                <div class="container mb-5">
+                    <div class="mt-5 mb-5">
+                        <span class="heading">ALL ORDERS</span>
+                    </div>
+                    <div class=" table-responsive">
+                        <table class="table  mt-5" id="sortTable">
+                            <thead>
+                                <tr class="">
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Products</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Status</th>
+
+                                    <th scope="col">Details </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(orders.length>0){orders.forEach((order)=>{ %>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <%=orders.indexOf(order)+1 %>
+                                        </td>
+                                        <% const dd=order.date.getDate(); const mm=order.date.getMonth() + 1; const
+                                            yyyy=order.date.getFullYear(); const formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                            <td>
+                                                <%=formattedDate %>
+                                            </td>
+                                            <td>
+                                                <%=order.user.fname %>
+                                            </td>
+                                            <td>
+                                                <% order.products.forEach((prod)=>{ %>
+                                                    <div class="d-flex mb-2">
+                                                        <div class="me-3 d-flex align-items-center">
+                                                            <img src="/images/product-images/<%=prod.productId.images[0]  %>"
+                                                                width="45rem" alt="">
+                                                        </div>
+                                                        <div>
+                                                            <span>
+                                                                <%=prod.productName %>
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <%})%>
+                                            </td>
+
+                                            <td>
+                                                <%=order.totalPrice %>
+                                            </td>
+
+                                            <td>
+                                                <%=order.status %>
+
+                                            </td>
+
+
+                                            <td><a href="/admin/singleOrderDetails?id=<%=order._id %>"
+                                                    class="btn btn-dark">Details</a></td>
+
+                                            <!-- modal -->
+                                            <div class="modal fade " id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Change
+                                                                Status
+                                                            </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="/admin/orderStatus" method="post">
+                                                            <div class="modal-body">
+                                                                <input type="hidden" name="orderId" id="orderId"
+                                                                    value="">
+                                                                <label for="status">Select delivery
+                                                                    status</label><br><br>
+                                                                <select name="status" class="form-control" id="status">
+                                                                    <option value="Shipped">Shipped</option>
+                                                                    <option value="Out for delivery">Out for delivery
+                                                                    </option>
+                                                                    <option value="Delivered">Delivered</option>
+                                                                </select>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Change
+                                                                    Status</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    <% })}else{ %>
+                                        <td>No data</td>
+                                        <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $('#sortTable').DataTable();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        $(document).on("click", ".popupBTN", function () {
+            var cId = $(this).data('id');
+            $(".modal-body #orderId").val(cId);
+        });
+    </script>
+
+<%- include('../includes/admin/adminFooter.ejs') %>

@@ -1,0 +1,14 @@
+.add-product{
+    color: #000;
+text-align: center;
+font-family: Nunito Sans;
+font-size: 32px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 75% */
+text-transform: uppercase;
+}
+.error-message {
+    color: red;
+    font-size: smaller;
+}

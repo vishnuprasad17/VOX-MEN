@@ -1,0 +1,204 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+
+    <link rel="stylesheet" href="./public/css/main.css">
+    <link rel="stylesheet" href="./public/css/user/order-details.css">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 108px;">
+                <section>
+                    <div class="container">
+                        <div class="mt-5">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 class="card-title">Delivery Address</h4>
+                                            <h6 class="card-text" style="font-size: 1.2rem;">
+                                                <%=order.deliveryAddress.name %>
+                                            </h6>
+                                            <span class="card-text">
+                                                <%=order.deliveryAddress.address %>
+                                            </span><br>
+                                            <span>
+                                                <%= order.deliveryAddress.town %> - <%=order.deliveryAddress.pincode %>
+                                                        <%=order.deliveryAddress.state %>
+
+                                            </span>
+                                            <div class="mt-2">
+                                                <h6>Phone number</h6>
+                                                <span>
+                                                    <%= order.deliveryAddress.mobile %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mt-5 mt-md-0">
+                                            <h4 class="card-title">Order Details</h4>
+                                            <div class="mb-2">
+                                                Customer: <%=order.user.fname %>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span>OrderId: <%=order._id %></span><br>
+                                                <% const dd=order.date.getDate(); const mm=order.date.getMonth() + 1;
+                                                    const yyyy=order.date.getFullYear(); const
+                                                    formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                                    <span>Date: <%=formattedDate %></span><br>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span>Payment Method: <%=order.paymentMethod %></span><br>
+                                                <span>Total Amount: <%=order.totalPrice %></span>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span>Coupon Name: <%=order.couponName %></span><br>
+                                                <span>Coupon Discount : <%=order.couponDiscount %></span>
+                                            </div>
+                                            <div>
+
+                                                <strong>Status : <%=order.status %></strong>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-4 mt-5 mt-md-0">
+
+
+
+                                            <%if(order.status.toString()=='Pending Return Approval'){%>
+
+                                                <h4 class="card-title">Actions</h4>
+                                                <div class="mt-3">
+                                                    <strong>Status: <%=order.status %></strong><br>
+                                                    <div class="mt-3">
+                                                        <form action="/admin/approveReturn/<%=order._id %>"
+                                                            method="post">
+                                                            <button type="submit"
+                                                                class="btn btn-dark rounded-0">Approve
+                                                                Return</button>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                                <%}else{%>
+                                                    <h4 class="card-title">Actions</h4>
+                                                    <div class="mt-3">
+                                                        <strong>Status: <%=order.status %></strong><br>
+                                                        <% if(order.status.toString()=='Shipped' ||
+                                                            order.status.toString()=='Order Confirmed'
+                                                            ||order.status.toString()=='Out for delivery' ) {%>
+                                                            <strong>Change Status : </strong><button
+                                                                style="border: none;" data-bs-toggle="modal"
+                                                                data-bs-target="#exampleModal" class="popupBTN"
+                                                                data-id="<%=order._id  %>"><i
+                                                                    class="bi bi-pencil-square"
+                                                                    style="color: blue;"></i></button>
+                                                            <% } %>
+
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <% if(order.status.toString()=='Shipped' ||
+                                                            order.status.toString()=='Order Confirmed' ) {%>
+                                                            <form
+                                                                action="/admin/cancelOrder/<%=order._id %>?status=Canceled by admin"
+                                                                method="post" id="myForm">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger rounded-0">Cancel
+                                                                    Order</button>
+                                                            </form>
+                                                            <% } %>
+                                                    </div>
+                                                    <% } %>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- prods -->
+
+                            <div class="row mt-4">
+                                <%order.products.forEach((product)=>{{%>
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="me-3">
+                                                        <img src="/images/product-images/<%=product.productId.images[0]%>"
+                                                            class="img-fluid" alt="" width="120rem">
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="card-title">
+                                                            <%=product.productName%>
+                                                        </h4>
+                                                        <span class="card-text" style="color: rgb(99, 99, 99);">Size:
+                                                            <%=product.size%>
+                                                        </span><br>
+                                                        <span class="card-text" style="color: rgb(99, 99, 99);">Quantity
+                                                            :
+                                                            <%=product.quantity%>
+
+                                                        </span>
+                                                        <h5 class="card-title">₹ <%=product.totalProductDiscountPrice%>
+                                                        </h5>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}})%>
+
+
+
+                            </div>
+                            <!-- modal -->
+                            <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Change
+                                                Status
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="/admin/orderStatus" method="post">
+                                            <div class="modal-body">
+                                                <input type="hidden" name="orderId" id="orderId" value="">
+                                                <label for="status">Select delivery status</label><br><br>
+                                                <select name="status" class="form-control" id="status">
+                                                    <option value="Shipped">Shipped</option>
+                                                    <option value="Out for delivery">Out for delivery
+                                                    </option>
+                                                    <option value="Delivered">Delivered</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Change
+                                                    Status</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                </section>
+            </main>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        $(document).on("click", ".popupBTN", function () {
+            var cId = $(this).data('id');
+            $(".modal-body #orderId").val(cId);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+    <script src="/javascript/formPopup.js"></script>
+    <%- include('../includes/admin/adminFooter.ejs') %>

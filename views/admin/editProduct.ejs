@@ -1,0 +1,322 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="/css/login.css ">
+    <link rel="stylesheet" href="/css/admin/add-prod.css ">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 78px;">
+                <section class="vh-100">
+                    <div class="container py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12 col-md-9 col-sm-12">
+                                <div class="shadow-2-strong">
+                                    <div class="container">
+                                        <span class="add-product">EDIT PRODUCT</span>
+                                    </div>
+                                    <div class=" p-5 ">
+
+                                        <form action="/admin/product/edit" method="post" enctype="multipart/form-data"
+                                            id="myForm">
+                                            <input type="hidden" name="id" value="<%=prod._id%>">
+
+                                            <div class="form-outline mb-3 row ">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                <label class="form-label" for="brand">Brand</label>
+                                                    <input type="text" class="form-control form-control-md rounded-0" id="brand" placeholder="Brand" name="brand" value="<%=prod.brand  %>" style='text-transform:uppercase' required />
+                                                        <small id="brandError"></small>
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <label class="form-label" for="lname">Product Name</label>
+                                                    <input type="text" class="form-control form-control-md rounded-0"
+                                                        id="name" placeholder="Product name" name="name"
+                                                        value="<%=prod.name  %>" required />
+                                                        <small id="productNameError"></small>
+                                                </div>
+                                            </div>
+                                            <div class="form-outline mb-3 row">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <div class="row">
+
+                                                        <div>
+                                                            <label class="form-label" for="category">Category</label>
+                                                            <select id="category" class="form-control" name="category">
+                                                                <option value="<%=prod.category.name %>">
+                                                                    <%=prod.category.name %>
+                                                                </option>
+                                                                <% if(catData.length>0){for(let i=0;i
+                                                                    <catData.length;i++)
+                                                                        {if(catData[i].name!=prod.category.name){%>
+                                                                        <option value="<%=catData[i].name %>">
+                                                                            <%=catData[i].name %>
+                                                                        </option>
+                                                                        <% }} }%>
+                                                            </select>
+                                                            <small id="categoryError"></small>
+                                                        </div>
+
+                                                        <div class="mt-4">
+                                                            <label class="form-label" for="price">Price</label>
+                                                            <input type="number"
+                                                                class="form-control form-control-md rounded-0"
+                                                                type="number" id="priceid" placeholder="price"
+                                                                name="price" min="0" value="<%=prod.price  %>"
+                                                                required />
+                                                                <small id="priceError"></small>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <label class="form-label" for="description">Description</label>
+                                                    <textarea type="text" rows="5" 
+                                                        class="form-control form-control-md rounded-0" id="description"
+                                                        placeholder="" name="description"
+                                                        required><%=prod.description  %></textarea>
+                                                        <small id="descriptionError"></small>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-outline mb-3 row">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <label class="form-label" for="dprice">Discount Price</label>
+                                                    <input type="number" class="form-control form-control-md rounded-0"
+                                                        type="number" id="discountprice" class="form-control"
+                                                        placeholder="Discount price" name="dPrice" required
+                                                        value="<%=prod.dPrice  %>" />
+                                                        <small id="discountPriceError"></small>
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <div class="row">
+                                                        <label class="form-check-label">Size :&nbsp;</label>
+                                                        <div class="col-md-6" id="size-character">
+                                                            <input class="form-check-input" type="checkbox" value="XS"
+                                                                id="check1" name="check1"
+                                                                onclick="handleCheckboxChange1()" <%
+                                                                if(prod.size.length>0){ for(let i=0;i
+                                                            <prod.size.length;i++){ if(prod.size[i]==='XS' ){%> checked
+                                                                <%}}}%> >
+                                                                    <label class="form-check-label"
+                                                                        for="check1">XS</label>
+
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="S" id="check2" name="check2"
+                                                                        onclick="handleCheckboxChange1()" <%
+                                                                        if(prod.size.length>0){ for(let i=0;i
+                                                                    <prod.size.length;i++){ if(prod.size[i]==='S' ){%>
+                                                                        checked
+                                                                        <%}}}%>>
+                                                                            <label class="form-check-label"
+                                                                                for="check2">S</label>
+
+                                                                            <input class="form-check-input"
+                                                                                type="checkbox" value="M" id="check3"
+                                                                                name="check3"
+                                                                                onclick="handleCheckboxChange1()" <%
+                                                                                if(prod.size.length>0){
+                                                                            for(let i=0;i<prod.size.length;i++){
+                                                                                if(prod.size[i]==='M' ){%> checked
+                                                                                <%}}}%>>
+                                                                                    <label class="form-check-label"
+                                                                                        for="check3">M</label>
+
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox" value="L"
+                                                                                        id="check4" name="check4"
+                                                                                        onclick="handleCheckboxChange1()"
+                                                                                        <% if(prod.size.length>0){
+                                                                                    for(let
+                                                                                    i=0;i
+                                                                                    <prod.size.length;i++){
+                                                                                        if(prod.size[i]==='L' ){%>
+                                                                                        checked
+                                                                                        <%}}}%>>
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="check4">L</label>
+
+                                                                                            <input
+                                                                                                class="form-check-input"
+                                                                                                type="checkbox"
+                                                                                                value="XL" id="check5"
+                                                                                                name="check5"
+                                                                                                onclick="handleCheckboxChange1()"
+                                                                                                <%
+                                                                                                if(prod.size.length>0){
+                                                                                            for(let
+                                                                                            i=0;i
+                                                                                            <prod.size.length;i++){
+                                                                                                if(prod.size[i]==='XL'
+                                                                                                ){%>
+                                                                                                checked
+                                                                                                <%}}}%>>
+                                                                                                    <label
+                                                                                                        class="form-check-label"
+                                                                                                        for="check5">XL</label>
+
+                                                                                                    <input
+                                                                                                        class="form-check-input"
+                                                                                                        type="checkbox"
+                                                                                                        value="XXL"
+                                                                                                        id="check6"
+                                                                                                        name="check6"
+                                                                                                        onclick="handleCheckboxChange1()"
+                                                                                                        <%
+                                                                                                        if(prod.size.length>0){
+                                                                                                    for(let i=0;i
+                                                                                                    <prod.size.length;i++){
+                                                                                                        if(prod.size[i]==='XXL'
+                                                                                                        ){%>
+                                                                                                        checked
+                                                                                                        <%}}}%>>
+                                                                                                            <label
+                                                                                                                class="form-check-label"
+                                                                                                                for="check6">XXL</label>
+                                                        </div>
+
+                                                        <div class="col-md-6" id="size-number">
+                                                            <input class="form-check-input" type="checkbox" value="5"
+                                                                id="check1" name="check1"
+                                                                onclick="handleCheckboxChange()" <%
+                                                                if(prod.size.length>0){ for(let i=0;i
+                                                            <prod.size.length;i++){ if(prod.size[i]==5 ){%> checked
+                                                                <%}}}%>>
+                                                                    <label class="form-check-label"
+                                                                        for="check1">5</label>
+
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="6" id="check2" name="check2"
+                                                                        onclick="handleCheckboxChange()" <%
+                                                                        if(prod.size.length>0){ for(let i=0;i
+                                                                    <prod.size.length;i++){ if(prod.size[i]==6 ){%>
+                                                                        checked
+                                                                        <%}}}%>>
+                                                                            <label class="form-check-label"
+                                                                                for="check2">6</label>
+
+                                                                            <input class="form-check-input"
+                                                                                type="checkbox" value="7" id="check3"
+                                                                                name="check3"
+                                                                                onclick="handleCheckboxChange()" <%
+                                                                                if(prod.size.length>0){
+                                                                            for(let i=0;i
+                                                                            <prod.size.length;i++){ if(prod.size[i]==7
+                                                                                ){%>
+                                                                                checked
+                                                                                <%}}}%>>
+                                                                                    <label class="form-check-label"
+                                                                                        for="check3">7</label>
+
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox" value="8"
+                                                                                        id="check4" name="check4"
+                                                                                        onclick="handleCheckboxChange()"
+                                                                                        <% if(prod.size.length>0){
+                                                                                    for(let
+                                                                                    i=0;i
+                                                                                    <prod.size.length;i++){
+                                                                                        if(prod.size[i]==8 ){%>
+                                                                                        checked
+                                                                                        <%}}}%>>
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="check4">8</label>
+
+                                                                                            <input
+                                                                                                class="form-check-input"
+                                                                                                type="checkbox"
+                                                                                                value="9" id="check5"
+                                                                                                name="check5"
+                                                                                                onclick="handleCheckboxChange()"
+                                                                                                <%
+                                                                                                if(prod.size.length>0){
+                                                                                            for(let
+                                                                                            i=0;i
+                                                                                            <prod.size.length;i++){
+                                                                                                if(prod.size[i]==9 ){%>
+                                                                                                checked
+                                                                                                <%}}}%>>
+                                                                                                    <label
+                                                                                                        class="form-check-label"
+                                                                                                        for="check5">9</label>
+
+                                                                                                    <input
+                                                                                                        class="form-check-input"
+                                                                                                        type="checkbox"
+                                                                                                        value="10"
+                                                                                                        id="check6"
+                                                                                                        name="check6"
+                                                                                                        onclick="handleCheckboxChange()"
+                                                                                                        <%
+                                                                                                        if(prod.size.length>0){
+                                                                                                    for(let i=0;i
+                                                                                                    <prod.size.length;i++){
+                                                                                                        if(prod.size[i]==10
+                                                                                                        ){%>
+                                                                                                        checked
+                                                                                                        <%}}}%>>
+                                                                                                            <label
+                                                                                                                class="form-check-label"
+                                                                                                                for="check6">10</label>
+                                                        </div>
+                                                        <small id="sizeError"></small>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-outline mb-3 row">
+                                                <div class=" col-md-4 col-12 mb-3">
+                                                    <label class="form-label" for="password">Quantity</label>
+                                                    <input class="form-control form-control-md rounded-0" type="Number"
+                                                        id="quantity" placeholder="Quantity" name="quantity" min="0"
+                                                        required value="<%=prod.quantity  %>" />
+                                                </div>
+                                                <div class="col-md-8 col-12">
+                                                    <label class="form-label" for="cPassword">Edit product
+                                                        images</label>
+                                                    <div class="d-flex align-items-center">
+
+                                                        <% for (let i=0; i < 3; i++) { %>
+                                                            <% if (i < prod.images.length) { %>
+                                                                <div>
+                                                                    <img style="width: 5rem;"
+                                                                        src="/images/product-images/<%= prod.images[i] %>"
+                                                                        alt="image">
+                                                                    <a href="/admin/productImageDelete/<%= prod._id %>?imageURL=<%= prod.images[i] %>"
+                                                                        class="btn btn-danger">Delete</a>
+                                                                </div>
+                                                                <% } %>
+                                                                    <% } %>
+
+                                                                        <% if (prod.images.length < 3) { %>
+                                                                            <% for (let i=0; i < 3 - prod.images.length;
+                                                                                i++) { %>
+                                                                                <input type="file"
+                                                                                    class="form-control-file" id="image"
+                                                                                    name="image" single accept="image/*"
+                                                                                    required>
+                                                                                <% } %>
+                                                                                    <% } %>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <button class="btn btn-md rounded-0 login-btn btn-dark" type="submit" onclick="return validateForm()">UPDATE
+                                                    Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+    </body>
+    <script src="/javascript/admin/addProduct.js"></script>
+
+    <%- include('../includes/admin/adminFooter.ejs') %>

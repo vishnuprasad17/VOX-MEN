@@ -1,0 +1,105 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/login.css">
+    </head>
+
+
+    <body>
+        <div class="main-top-section">
+
+        <%- include('../includes/user/header.ejs') %>
+            <section  class="mt-5">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-9 col-sm-12">
+                            <div class="card shadow-2-strong cardbody-color">
+                                <div class=" p-5 ">
+                                    <div class="text-center">
+                                        <h3 class="mb-3">SIGN UP</h3>
+                                        <h2 style="color: red;">
+                                            <%=locals.message?message:'' %>
+                                        </h2>
+                                    </div>
+                                    <form action="/signup" method="post">
+
+
+                                        <div class="form-outline mb-3 row ">
+                                            <div class=" col-md-6 col-12 mb-3">
+                                                <input type="text" id="fname"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="Enter first name" name="fname" required />
+                                                <small id="fname-Error"></small>
+
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <input type="text" id="lname"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="Enter last name" name="lname" required />
+                                                <small id="lname-Error"></small>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-outline mb-3 row">
+                                            <div class=" col-md-6 col-12 mb-3">
+                                                <input type="number" id="mobile"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="Enter mobile no." name="mobile" required />
+                                                <small id="mobile-Error"></small>
+
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <input type="email" id="email"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="Enter email" name="email" required />
+                                                <small id="email-Error"></small>
+                                                <small id="clear" style="color: red;">
+                                                    <%=locals.emailExistMessage?emailExistMessage:'' %>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline mb-3 row">
+                                            <div class=" col-md-6 col-12 mb-3">
+                                                <input type="password" id="password"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="Enter your password" name="password" required />
+                                                <span style="font-size: 12px;">*Must contain an uppercase letter,
+                                                    lowercase letter, special character and a number. Password should
+                                                    contain minimum 8 characters</span>
+                                                <small id="password-Error"></small>
+
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <input type="password" id="cPassword"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="Confirm Password" name="cPassword" required />
+                                                <small id="cPassword-Error"></small>
+
+                                                <small style="color: red;" class="mt-3">
+                                                    <%=locals.passwordNotMatch?passwordNotMatch:'' %>
+                                                </small><br>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-md rounded-0 login-btn btn-dark" type="submit"
+                                                onclick="return validateForm()">SIGN
+                                                UP</button>
+                                            <div class="mt-2">
+                                                <a href="/login" class="signup-btn"><span>ALREADY REGISTERED? LOG
+                                                        IN</span></a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+
+    <script src="/validation/userSignup.js" type="text/javascript"></script>
+
+    <%- include('../includes/user/userFooter.ejs') %>

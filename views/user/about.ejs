@@ -1,0 +1,78 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/home.css">
+    </head>
+    <style>
+      .btn-dark:hover{
+        background-color: rgb(0, 0, 0);
+      }
+      .connect-link {
+    color: white; /* Set the text color to white */
+    text-decoration: none;
+    }
+
+    .btn-dark .connect-link:hover {
+    text-decoration: none; /* Remove underline on hover */
+    color: #bfa7a7;
+    }
+    .fs-5, .display-5{
+    font-size: 37px;  
+    }
+    </style>
+    <body>
+        <div class="main-top-section">
+            <%- include('../includes/user/header.ejs') %>
+                <!-- About 4 - Bootstrap Brain Component -->
+    <section class="py-3 py-md-5 py-xl-8">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-10 col-lg-8">
+          <h3 class="fs-5 mb-2 text-secondary text-uppercase">About</h3>
+          <h2 class="display-5 mb-4">VOX: Empowering men through modern, stylish, and versatile clothing that embodies confidence, sophistication, and contemporary fashion trends.</h2>
+          <button type="button" class="btn btn-lg btn-dark mb-3 mb-md-4 mb-xl-5">
+            <a href="/contact" class="connect-link">Connect Now</a>
+        </button>
+        
+        </div>
+      </div>
+    </div>
+  
+    <div class="container">
+      <div class="row gy-3 gy-md-4 gy-lg-0">
+        <div class="col-12 col-lg-6">
+          <div class="card bg-light p-3 m-0">
+            <div class="row gy-3 gy-md-0 align-items-md-center">
+              <div class="col-md-5">
+                <img src="./images/about/about1.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body p-0">
+                  <h2 class="card-title h4 mb-3">Why Choose Us?</h2>
+                  <p class="card-text lead">VOX stands out for its premium quality, trendy designs, unparalleled comfort, commitment to empowering men's style & confidence.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="card bg-light p-3 m-0">
+            <div class="row gy-3 gy-md-0 align-items-md-center">
+              <div class="col-md-5">
+                <img src="./images/about/about2.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body p-0">
+                  <h2 class="card-title h4 mb-3">Visionary Team</h2>
+                  <p class="card-text lead">VOX is powered by a visionary team committed to crafting innovative fashion, setting trends, and inspiring individual expression worldwide.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+        </div>
+        <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <%- include('../includes/user/userFooter.ejs') %>

@@ -1,0 +1,64 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/user/form.css">
+
+    </head>
+
+    <body>
+        <div class="main-top-section">
+        <%- include('../includes/user/header.ejs') %>
+            <section class="">
+                <div class="container">
+                    <div class="row">
+                      <div class="col-md-6 offset-md-3">
+                        <div class="card my-5">
+                            <div class="text-center cardbody-color">
+                                <h2 class="text-center text-dark mt-3">ADDRESS</h2>
+                            </div>
+                          <form class="card-body cardbody-color p-lg-5" action="/add-address/<%=addressLocation%>" method="post">
+                            <div class="mb-3">
+                                <input type="text" id="name" class="form-control form-control-md rounded-0" placeholder="Enter your name" name="name" required />
+                                <small id="name-error"></small>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" id="mobile"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="10-digit mobile number" name="mobile" required />
+                                                <small id="mobile-error"></small>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" id="pincode"
+                                                    class="form-control form-control-md rounded-0"
+                                                    placeholder="6 digit pincode" name="pincode" required />
+                                                <small id="pincode-error"></small>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control rounded-0" id="address" rows="2" placeholder="Address"
+                                                    name="address" required></textarea>
+                                                    <small id="address-error"></small>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" id="town" class="form-control form-control-md rounded-0"
+                                                    placeholder="town" name="town" required />
+                                                <small id="town-error"></small>
+                            </div>
+                            <div class="mb-3">
+                                                <input type="text" id="state" class="form-control form-control-md rounded-0"
+                                                    placeholder="State" name="state" required />
+                                                <small id="state-error"></small>
+                            </div>
+                            <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100" onclick="return validateForm()">SAVE ADDRESS</button></div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+            <section>
+                <%- include('../includes/user/footerSection.ejs') %>
+            </section>
+            
+    </body>
+<script src="/validation/address.js"></script>
+<%- include('../includes/user/userFooter.ejs') %>

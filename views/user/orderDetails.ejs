@@ -1,0 +1,231 @@
+<%- include('../includes/user/userHead') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/user/order-details.css">
+
+
+    </head>
+
+    <body>
+        <div class="main-top-section">
+
+        <%- include('../includes/user/header.ejs') %>
+            <section>
+                <div class="container">
+                    <div class="mt-5">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="card-title">Delivery Address</h4>
+                                        <h6 class="card-text" style="font-size: 1.2rem;">
+                                            <%=orderDetails.deliveryAddress.name %>
+                                        </h6>
+                                        <span class="card-text">
+                                            <%=orderDetails.deliveryAddress.address %>.
+                                        </span><br>
+                                        <span>
+                                            <%=orderDetails.deliveryAddress.town%> -
+                                                <%=orderDetails.deliveryAddress.pincode %>
+                                                    <%=orderDetails.deliveryAddress.state %>
+                                        </span>
+                                        <div class="mt-2">
+                                            <h6>Phone number</h6>
+                                            <span>
+                                                <%=orderDetails.deliveryAddress.mobile %>
+                                            </span>
+                                        </div>
+                                        <div class="mt-2">
+                                            <strong>Ordered Date: </strong>
+                                            <% const dd=orderDetails.date.getDate(); const
+                                                mm=orderDetails.date.getMonth() + 1; const
+                                                yyyy=orderDetails.date.getFullYear(); const
+                                                formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                                <span>
+                                                    <%= formattedDate%>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 d-flex mb-3 pt-2  align-items-center mt-3 mt-sm-0">
+                                        <h6>Payment Method : <strong>
+                                                <%=orderDetails.paymentMethod %>
+                                            </strong></h6>
+                                    </div>
+
+                                    <% if(status<=2) {%>
+                                        <div
+                                            class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                            <!-- <a href="" class="btn btn-secondary">Invoice <i
+                                                    class="bi bi-file-earmark-arrow-down"></i></a> -->
+                                        </div>
+                                        <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                            <form action="/cancelOrder/<%=orderDetails._id %>?status=Canceled"
+                                                method="post" id="cancelForm"><button type="submit"
+                                                    class="btn btn-danger">Cancel
+                                                    Order</button></form>
+                                        </div>
+                                        <% }%>
+
+
+                                            <% if(status===4){%>
+                                                <%if(allowReturn==true) {%>
+                                                    <div
+                                                        class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                                        <form action="/returnOrder" method="post" id="returnForm">
+                                                            <input type="hidden" name="orderId"
+                                                                value="<%=orderDetails._id  %>">
+                                                            <input type="hidden" name="status"
+                                                                value="Pending Return Approval">
+                                                            <button class="btn btn-danger">Return</button>
+                                                        </form>
+                                                    </div>
+                                                    <% } %>
+                                                        <div
+                                                            class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                                            <a href="/invoice?id=<%=orderDetails._id  %>"
+                                                                class="btn btn-secondary">Invoice <i
+                                                                    class="bi bi-file-earmark-arrow-down"></i></a>
+                                                        </div>
+                                                        <% } %>
+                                                            <% if(status==5 || status==6){ %>
+
+                                                                <div
+                                                                    class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                                                    <!-- <a href="" class="btn btn-secondary">Invoice <i
+                                                            class="bi bi-file-earmark-arrow-down"></i></a> -->
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                                                    <h5 style="color: red;"> Order
+                                                                        <%=orderDetails.status %>
+                                                                    </h5>
+                                                                </div>
+                                                                <% } %>
+                                                                    <% if(status>=7){ %>
+
+                                                                        <div
+                                                                            class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                                                            <!-- <a href="" class="btn btn-secondary">Invoice <i
+                                                            class="bi bi-file-earmark-arrow-down"></i></a> -->
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
+                                                                            <h5 style="color: orange;">
+                                                                                <%=orderDetails.status %>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% if(status<5){ %>
+                            <div class="card pb-3">
+                                <div class="text-center mt-3">
+                                    <h4 class="card-title">Order Status</h4>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-12">
+                                        <ul id="progressbar" class="text-center">
+                                            <li class="<%=locals.status>=1?'active':''  %> step0">Order Confirmed </li>
+                                            <li class="<%=locals.status>=2?'active':''  %> step0">Shipped</li>
+                                            <li class="<%=locals.status>=3?'active':''  %> step0">Out for delivery</li>
+                                            <li class="<%=locals.status>=4?'active':''  %> step0">Delivered</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+
+                                <!-- prods -->
+
+                                <div class="row mt-4">
+                                    <% orderDetails.products.forEach((prod)=>{ %>
+                                        <div class="col-sm-6 mb-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex">
+                                                        <div class="me-3">
+                                                            <img src="/images/product-images/<%=prod.productId.images[0]%>"
+                                                                class="img-fluid" alt="" width="120rem">
+                                                        </div>
+                                                        <div>
+                                                            <h4 class="card-title">
+                                                                <%= prod.productName %>
+                                                            </h4>
+                                                            <span class="card-text"
+                                                                style="color: rgb(99, 99, 99);">Size:
+                                                                <%=prod.size %>
+                                                            </span><br>
+                                                            <span class="card-text"
+                                                                style="color: rgb(99, 99, 99);">Quantity :
+                                                                <%=prod.quantity %>
+                                                            </span>
+                                                            <h5 class="card-title">₹ <%=orderDetails.totalPrice
+                                                                    %>
+                                                            </h5>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+            
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <!-- <script src="/javascript/formPopup.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+    <script>
+        function showConfirmationReturn() {
+    Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If the user confirms, submit the form
+            document.getElementById('returnForm').submit();
+        }
+    });
+}
+document.getElementById('returnForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting directly
+    showConfirmationReturn(); // Show the confirmation box
+});
+    </script>
+    <script>
+        function showConfirmation() {
+    Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If the user confirms, submit the form
+            document.getElementById('cancelForm').submit();
+        }
+    });
+}
+document.getElementById('cancelForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting directly
+    showConfirmation(); // Show the confirmation box
+});
+    </script>
+
+    <%- include('../includes/user/userFooter.ejs') %>

@@ -1,0 +1,113 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/user/home.css">
+    </head>
+
+    <body>
+        <div class="main-top-section">
+
+        <%- include('../includes/user/header.ejs') %>
+
+            <section style="min-height: 50vh;">
+                <div class="banner1">
+
+                    <% if(banner.length>0) {%>
+                        <a href="<%=banner[0].url  %>">
+                            <img src="/images/banner-images/<%=banner[0].image  %>" class="img-fluid" alt="" style="width: 100%;">
+                        </a>
+                        <% } %>
+
+
+                </div>
+                <% if(category.length>0) {%>
+                    <div class="category mt-5 mb-3">
+                        <div class="categories container mt-3">
+                            <div class=" row">
+                                <!-- <div class=" d-flex justify-content-around gap-1 gap-sm-5"> -->
+                                <% for(let i=0;i<8&& i<category.length;i++) {%>
+
+                                    <div class="col-md-3 col-3">
+                                        <a href="/shop?category=<%=category[i]._id  %>">
+                                            <div class="card rounded-0 border-0 ">
+                                                <div class="category-container" style="background-color: #EBEEEF;">
+                                                    <img src="/images/category-images/<%=category[i].image  %>"
+                                                        class="card-img-top img-fluid " alt="...">
+                                                </div>
+                                                <div class="card-body text-center">
+                                                    <p class="text-dark"><strong style="font-size: 15px;"><%= category[i].name %></strong>
+                                                        <span class="underline"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <% } %>
+
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
+                        <div class="banner2">
+
+                            <% if(banner.length>1) {%>
+                                <a href="<%=banner[1].url  %>">
+                                    <img src="/images/banner-images/<%=banner[1].image %>" class="img-fluid" alt="" style="width: 100%;">
+                                </a>
+                                <% } %>
+
+                        </div>
+                        <% if(products&& products.length>0) {%>
+                            <div class="top-deals container mt-5 mb-5">
+                                <div class="text-center">
+                                    <p class="display-3"><strong>LATEST DEALS</strong></p>
+                                </div>
+                                <div class="row mt-5">
+                                    <% for(let i=0;i<4 && i<products.length;i++){ %>
+
+                                        <div class="col-6 col-md-3 mb-4">
+                                            <a href="/product?id=<%=products[i]._id %>" id="prod-link">
+                                                <div class="card productDisplayCard">
+                                                    <div class="image-container">
+                                                        <img src="/images/product-images/<%=products[i].images[0] %>"
+                                                            class="card-img-top" alt="...">
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <small>
+                                                            <%=products[i].brand %>
+                                                        </small>
+                                                        <p class="card-title text-uppercase">
+                                                            <%=products[i].name %>
+                                                        </p>
+                                                        <strong class="price">₹<%=products[i].dPrice %></strong>&nbsp;&nbsp;<span style="text-decoration: line-through;color: grey;">₹<%=products[i].price %></span>&nbsp;&nbsp;
+                                                        <br> <span style="color: green;font-weight: 600;">
+                                                        
+                                                            <% if(products[i].offer) {%>
+                                                                <small class=" text-white p-1 ps-2  pe-2"
+                                                                    style="font-weight: 100;background-color: rgb(20, 21, 20);">Special
+                                                                    <%= Math.floor(100-((products[i].dPrice/products[i].price)*100)) %>%
+                                                                        off
+                                                                </small>
+    
+                                                                <% } else{%>
+                                                                    <%= Math.floor(100-((products[i].dPrice/products[i].price)*100)) %>%
+                                                                        off
+                                                                        <% } %>
+    
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <% } %>
+
+                                </div>
+                            </div>
+                            <% } %>
+            </section>
+        </div>
+
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <%- include('../includes/user/userFooter.ejs') %>

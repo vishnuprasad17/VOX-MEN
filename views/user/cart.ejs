@@ -1,0 +1,266 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/user/cart.css" type="text/css">
+    </head>
+
+    <body>
+        <div class="main-top-section">
+        <%- include('../includes/user/header.ejs') %>
+            <section class="">
+                <div class="container mt-5">
+                    <div class="shopping-cart  ">
+                        <%if(cartData.length>0){%>
+                            <% if(cartData[0].products.length>0) {%>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-lg-8">
+                                        <div class="shopping__cart__table">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="align-middle">
+
+                                                        <%cartData.forEach(prods=>{ %>
+                                                            <% prods.products.forEach(prod=>{ %>
+                                                                <tr>
+                                                                    <td class="product__cart__item">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="product__cart__item__pic">
+                                                                                <a
+                                                                                    href="/product?id=<%=prod.productId._id %>">
+                                                                                    <img width="80px"
+                                                                                        src="/images/product-images/<%=prod.productId.images[0] %>"
+                                                                                        alt="" class="me-2">
+                                                                                </a>
+
+                                                                            </div>
+                                                                            <div class="product__cart__item__text">
+                                                                                <h6 >
+                                                                                    <%= prod.productId.name %>
+                                                                                </h6>
+                                                                                <h5 id="<%= prod._id %>price">
+                                                                                    ₹<%=prod.productId.dPrice %>
+                                                                                </h5>
+                                                                                <small>Size: <%= prod.size %></small>
+                                                                            </div>
+                                                                        </div>
+                                                                        <span style="color: red;"
+                                                                            id="<%= prod._id %>msg"></span>
+
+                                                                    </td>
+                                                                    <td class="quantity__item">
+                                                                        <div class="quantity">
+                                                                            <div class="pro-qty-2 d-flex">
+                                                                                <!-- <input type="text" value=""> -->
+                                                                                <button style="background-color: rgb(210, 210, 210);" class="border-0 rounded-2" id="<%= prod._id %>plus"
+                                                                                    onclick="updateCart(-1,'<%=prod.productId._id%>','<%=prod.size%>','<%= prod._id %>')"><i
+                                                                                        class="bi bi-dash-lg"></i></button>
+
+                                                                                <span class="ms-2 me-2 quantity"
+                                                                                    id="<%= prod._id %>"
+                                                                                    data-max-quantity="<%= prod.productId.quantity %>">
+                                                                                    <%= prod.quantity %>
+                                                                                </span>
+
+                                                                                <button style="background-color: rgb(210, 210, 210);" class="border-0 rounded-2" id="<%= prod._id %>minus"
+                                                                                    onclick="updateCart(1,'<%=prod.productId._id%>','<%=prod.size%>','<%= prod._id %>')"><i
+                                                                                        class="bi bi-plus-lg"></i></button>
+                                                                                <!-- <a href=""><i class="bi bi-dash-lg"></i></a><input type="text" value="1" readonly><a href=""><i class="bi bi-plus-lg"></i></a> -->
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+
+
+                                                                    <td class="cart__price" id="<%= prod._id %>%>y">₹<%=prod.cDPrice %>
+                                                                        
+                                                                    </td>
+                                                                    <td class="cart__close">
+                                                                        <form
+                                                                            action="/deleteCart/<%=prod.productId._id%>"
+                                                                            method="post"><button
+                                                                                style="background-color: rgb(0, 0, 0);" class="border-0 rounded-3 text-white">X</button>
+                                                                        </form>
+                                                                    </td>
+                                                                    <!-- <td class="cart__close"><a href="">X</a></td> -->
+
+
+                                                                </tr>
+
+                                                                <% }) %>
+
+                                                                    <% })%>
+
+
+                                                                        <span id="messageServer"></span>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                
+                                        <div class="card mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="mb-0">PRICE DETAILS</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                        Total Price
+                                                        <span id="subTotal">₹<%= locals.totalPrice ? totalPrice : 0 %></span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                        Discount
+                                                        <span>-₹<%= locals.totalPrice ? (totalPrice-discountPrice) : 0 %></span>
+                                                    </li><hr>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                                        <div>
+                                                            <strong>Total amount</strong>
+                                                        </div>
+                                                        <span id="totalPrice"><strong>₹<%= locals.discountPrice ? discountPrice : 0 %></strong></span>
+                                                    </li>
+                                                </ul>
+                                        
+                                                <a href="/placeOrder" class="btn btn-dark btn-lg btn-block rounded-0" style="width: 100%;">
+                                                    Go to checkout
+                                                </a><hr>
+                                                <p class="text-center" style="color: #388e3c; font-weight: 500;">You will save ₹<%= locals.totalPrice ? (totalPrice-discountPrice) : 0 %> on this order</p>
+                                            </div>
+                                        </div>
+                                        
+
+                                        
+
+                                    </div>
+                                    <% } else{%>
+                                        <div class="d-flex flex-column justify-content-center align-items-center">
+                                            <div>
+                                                <h4>Your cart is empty</h4><br>
+                                            </div>
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
+                                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                  </svg>
+                                            </div>
+                                            <div>
+                                                <br><a href="/shop" class="btn btn-link text-dark">Add something to cart</a>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                            <%}else{%>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center">
+                                                    <div>
+                                                        <h4>Your cart is empty</h4><br>
+                                                    </div>
+                                                    <div>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
+                                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                          </svg>
+                                                    </div>
+                                                    <div>
+                                                        <br><a href="/shop" class="btn btn-link text-dark">Add something to
+                                                            cart</a>
+                                                    </div>
+
+                                                </div>
+                                                <%}%>
+                                </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        function updateCart(operation, prodId, size, spanID) {
+            let quantity = document.getElementById(spanID)
+            let parsedQuantity = parseInt(quantity.innerText)
+
+            let minQuantity = 1;
+            let maxQuantity = parseInt(quantity.dataset.maxQuantity);
+
+            maxQuantity = Math.min(maxQuantity, 10);
+
+            if (operation == 1 && parsedQuantity < maxQuantity) {
+                parsedQuantity++
+            } else if (operation == -1 && parsedQuantity > 1) {
+                parsedQuantity--
+            }
+            quantity.innerText = parsedQuantity
+            ajaxConnection(parsedQuantity, prodId, size, spanID)
+
+            //btn dis
+            var plusBtn = document.getElementById(`${spanID}plus`)
+            var minusBtn = document.getElementById(`${spanID}minus`)
+            plusBtn.disabled = true
+            minusBtn.disabled = true
+
+            if (parsedQuantity === 1) {
+                plusBtn.disabled = true;
+            } else {
+                plusBtn.disabled = false;
+            }
+
+            if (parsedQuantity == 10 || parsedQuantity == maxQuantity) {
+                minusBtn.disabled = true;
+            } else {
+                minusBtn.disabled = false;
+            }
+            //making error msg
+
+            let messageElement = document.getElementById(`${spanID}msg`);
+
+
+            if (parsedQuantity == 10) {
+                messageElement.innerText = "Max quantity reached";
+            } else if (parsedQuantity == maxQuantity) {
+                messageElement.innerText = "Stock limit reached"; // Clear the message if not at the limit
+            } else {
+                messageElement.innerText = ""
+            }
+        }
+
+
+        //ajax
+        function ajaxConnection(amt, prodId, size, spanID) {
+            $.ajax({
+                method: 'put',
+                url: '/updateCart',
+                data: { amt, prodId, size },
+                success: (res) => {
+                    if (res.status == true) {
+                        // $(`#${spanID}msg`).html(res.data.st)
+                        $('#subTotal').html(`₹ ${res.data.totalPrice}`)
+                        $('#totalPrice').html(`₹ ${res.data.discountPrice}`)
+                        $(`#${spanID}y`).html(`₹${res.data.dPrice}`)
+                        $(`#discount`).html(`-₹${res.data.totalDiscount}`)
+                        $(`#${spanID}price`).html(`₹${res.data.productPrice}`)
+
+                        document.getElementById(`${spanID}plus`).disabled = false
+                        document.getElementById(`${spanID}minus`).disabled = false
+
+                    } else if (res.status == false) {
+                        $(`#${spanID}msg`).html(res.data)
+                    }
+                }
+            })
+        }
+    </script>
+
+    <%- include('../includes/user/userFooter.ejs') %>
+
+
+    

@@ -1,0 +1,45 @@
+<script src="/javascript/nav/jquery-3.3.1.min.js"></script>
+<script src="/javascript/nav/jquery.slicknav.js"></script>
+<script src="/javascript/nav/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    //main search tag
+    function checkEnterKey(event) {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            submitQuery();
+        }
+    }
+    function submitQuery() {
+        const query = document.getElementById('queryInput').value;
+        const baseUrl = '/shop'; // Replace with your desired link URL
+        const urlWithQuery = `${baseUrl}?search=${encodeURIComponent(query)}`;
+
+        // Open the link in the same window
+        window.location.href = urlWithQuery;
+
+        // If you want to open the link in a new tab, use the following line instead
+        // window.open(urlWithQuery, '_blank');
+    }
+
+    //second search tag
+    function enterKey(event) {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            searchQuerySubmit();
+        }
+    }
+    function searchQuerySubmit() {
+        const query = document.getElementById('secondQueryInput').value;
+        const baseUrl = '/shop'; // Replace with your desired link URL
+        const urlWithQuery = `${baseUrl}?search=${encodeURIComponent(query)}`;
+
+        // Open the link in the same window
+        window.location.href = urlWithQuery;
+
+        // If you want to open the link in a new tab, use the following line instead
+        // window.open(urlWithQuery, '_blank');
+    }
+</script>
+
+</html>

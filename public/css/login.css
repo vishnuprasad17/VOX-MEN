@@ -1,0 +1,42 @@
+.btn-color{
+    background-color: #0e1c36;
+    color: #fff;
+    
+  }
+  
+  .profile-image-pic{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+  }
+  
+  
+  
+  .cardbody-color{
+    background-color: #ebf2fa;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+
+  .input-group-text {
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.input-group-text i {
+    color: #6c757d;
+}
+
+.form-control {
+    padding-right: 36px;
+}
+.stylish-heading {
+    font-size: 36px; 
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,78 @@
+<%- include('../includes/user/userHead.ejs') %>
+    <link rel="stylesheet" href="/css/user/home.css">
+    </head>
+
+    <body>
+        <div class="main-top-section">
+
+            <%- include('../includes/user/header.ejs') %>
+                <section>
+                    <div class="container mt-5">
+                        <div class="mb-4">
+                            <h1>WISHLIST</h1>
+                        </div>
+                        <div class="row mt-4">
+                            <%if(wishList.length>0){wishList.forEach((prod)=>{ %>
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div class="card">
+                                        <div class="image-container">
+                                            <a href="/product?id=<%=prod._id %>">
+                                                <img src="/images/product-images/<%=prod.images[0] %>" class="card-img-top"
+                                                    alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <small>
+                                                <%=prod.brand %>
+                                            </small>
+                                            <p class="card-title text-uppercase">
+                                                <%=prod.name %>
+                                            </p>
+                                            <strong class="price">₹ <%=prod.dPrice %></strong>
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="mb-3">
+                                                <a href="/product?id=<%=prod._id %>"
+                                                    class="btn  w-100 rounded-0 text-white"
+                                                    style="background-color: #e53637;">VIEW PRODUCT</a>
+                                            </div>
+                                            <div>
+                                                <form action="/wishList/<%=prod._id%>?location=wishList" method="post">
+                                                    <button class="btn w-100 rounded-0"
+                                                        style="color: #e53637; border: 1px solid #e53637;"
+                                                        type="submit">REMOVE</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% })}else {%>
+                                    <div style="height: 50vh;">
+                                        <div style="display: grid;place-content: center;">
+                                            <div class="text-center">
+                                                <h2 class="display-3">Oops!</h2>
+                                                <h6 class="display-4 display-md-3" style="font-size: 24px;">Your Wishlist is empty!</h6>
+                                                <p class="lead" style="color: rgb(179, 177, 177);">You haven't saved anything yet.</p>
+                                            </div>                                                                                       
+                                            
+                                            <div class="text-center mt-3"><a href="/shop?page=1"
+                                                    class="btn btn-dark w-50">Go to shop</a></div>
+
+
+                                        </div>
+                                    </div>
+
+                        </div>
+                        <% } %>
+
+                    </div>
+
+                </section>
+        </div>
+        </div>
+
+        <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <%- include('../includes/user/userFooter.ejs') %>

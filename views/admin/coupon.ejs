@@ -1,0 +1,117 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="/css/admin/prod-list.css">
+    <link rel="stylesheet" href="/css/admin/coupon.css">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 108px;">
+                <div class="container">
+                    <div class="mb-5"> </div>
+                    <span class="prod-heading">COUPONS</span>
+                    <div class=" table-responsive">
+                        <table class="table text-center " id="sortTable">
+                            <div class="d-flex justify-content-end mb-5">
+                                <button class=" rounded-0 add-btn"> <a href="/admin/addCoupon" class="text-white">Add
+                                        Coupon</a></button>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Discount</th>
+                                    <th scope="col">Min Purchase</th>
+                                    <th scope="col">Expiry</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Status</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(coupons.length>0){coupons.forEach((coupon)=>{ %>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <%=(coupons.length)-(coupons.indexOf(coupon)+1)+1 %>
+                                        </td>
+                                        <td>
+                                            <%=coupon.name %>
+                                        </td>
+                                        <td>
+                                            <%=coupon.description %>
+                                        </td>
+                                        <td>
+                                            ₹ <%=coupon.discount %>
+                                        </td>
+                                        <td>
+                                            <%=coupon.purchaseLimit %>
+                                        </td>
+                                        <% const dd=coupon.expiryDate.getDate(); const mm=coupon.expiryDate.getMonth() +
+                                            1; const yyyy=coupon.expiryDate.getFullYear(); const
+                                            formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                            <td>
+                                                <%=formattedDate %>
+                                            </td>
+                                            <td>
+                                                <a href="/admin/editCoupon?id=<%=coupon._id  %>"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path
+                                                            d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13"
+                                                            stroke="#4743FF" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path
+                                                            d="M18.5 2.5C18.8978 2.10217 19.4374 1.87868 20 1.87868C20.5626 1.87868 21.1022 2.10217 21.5 2.5C21.8978 2.89782 22.1213 3.43739 22.1213 4C22.1213 4.56261 21.8978 5.10217 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z"
+                                                            stroke="#4743FF" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg></a>
+                                            </td>
+
+                                            <form action="/admin/changeStatus/<%=coupon._id%>" method="post"
+                                                id="myForm">
+
+
+                                                <td><button class="rounded-0 border-0 " style="background: none;"
+                                                        type="submit">
+                                                        <%if(coupon.status===true){%>
+                                                            <a class="btn rounded-0  list-btn">LISTED</a>
+                                                            <%}else{%>
+                                                                <a class="btn  rounded-0  unList-btn">UNLISTED</a>
+                                                                <%}%>
+                                                    </button></td>
+
+
+
+
+                                            </form>
+
+                                    </tr>
+                                    <% })}else{%>
+                                        <td>No coupons available</td>
+                                        <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </main>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $('#sortTable').DataTable({
+            responsive: true
+        });
+    </script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+    <script src="/javascript/formPopup.js"></script> -->
+    <%- include('../includes/admin/adminFooter.ejs') %>

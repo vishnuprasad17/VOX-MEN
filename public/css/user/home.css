@@ -1,0 +1,72 @@
+#prod-link:hover {
+    color: inherit;
+}
+
+.category u {
+    text-decoration: 2px #d6c8c8 underline;
+}
+
+
+/* category effect */
+
+.category-container {
+    overflow: hidden;
+    /* Hide the overflow to prevent unwanted behavior */
+}
+
+.category-container img {
+    transition: transform 0.3s ease;
+    /* Smooth transition on hover */
+    width: 100%;
+    /* Make sure the image fills the container */
+    height: 100%;
+}
+
+.category-container:hover img {
+    transform: scale(1.003);
+    /* Scale up the image on hover (adjust the value as desired) */
+}
+
+
+/* image effect */
+.image-container {
+    overflow: hidden;
+    /* Hide the overflow to prevent unwanted behavior */
+}
+
+.image-container img {
+    transition: transform 0.3s ease;
+    /* Smooth transition on hover */
+    width: 100%;
+    /* Make sure the image fills the container */
+    height: 100%;
+}
+
+.image-container:hover img {
+    transform: scale(1.03);
+    /* Scale up the image on hover (adjust the value as desired) */
+}
+
+
+@media (min-width: 376px) and (max-width: 470px) {
+    .productDisplayCard {
+        min-height: 20rem;
+    }
+}
+@media (min-width: 421px) and (max-width: 469px) {
+    .productDisplayCard {
+        min-height: 22rem;
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .productDisplayCard {
+        min-height: 20rem;
+    }
+}
+@media (min-width: 330px) and (max-width: 375px) {
+    .productDisplayCard {
+        min-height: 20rem;
+    }
+}

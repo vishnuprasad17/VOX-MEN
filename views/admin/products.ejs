@@ -1,0 +1,269 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="/css/admin/users.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/admin/prod-list.css">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+
+    </head>
+
+    <style>
+
+    </style>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 108px;">
+                <div class="container">
+                    <div class="mb-5"> </div>
+                    <span class="prod-heading">All products</span>
+                    <div class=" table-responsive">
+                        <table class="table text-center " id="sortTable">
+                            <div class="d-flex justify-content-end mb-5">
+                                <button class=" rounded-0 add-btn"> <a href="/admin/product/addProduct">Add
+                                        Product</a></button>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Discount Price</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">CreatedAt</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Offer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <% if(prods.length>0){for(let i=0;i<prods.length;i++){ %>
+                                        <tr class="align-middle">
+                                            <td>
+                                                <%=i+1 %>
+                                            </td>
+
+                                            <td>
+                                                <img style="width: 4rem;" src="/images/product-images/<%=prods[i].images[0]  %>"
+                                                    alt="image">
+                                            </td>
+                                            <td>
+                                                <%=prods[i].brand %>
+                                            </td>
+                                            <td>
+                                                <%=prods[i].name %>
+                                            </td>
+                                            <td>
+                                                <%=prods[i].category.name %>
+                                            </td>
+                                            <td>
+                                                <%=prods[i].price %>
+                                            </td>
+                                            <td>
+                                                <%=prods[i].dPrice %>
+                                            </td>
+                                            <td>
+                                                <%=prods[i].quantity %>
+                                            </td>
+                                            <% const dd=prods[i].createdAt.getDate(); const
+                                                mm=prods[i].createdAt.getMonth() + 1; const
+                                                yyyy=prods[i].createdAt.getFullYear(); const
+                                                formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                                <td>
+                                                    <%= formattedDate%>
+                                                </td>
+
+                                                <td><a href="/admin/product/edit/<%=prods[i]._id%>" class="btn"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13"
+                                                                stroke="#4743FF" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                            <path
+                                                                d="M18.5 2.5C18.8978 2.10217 19.4374 1.87868 20 1.87868C20.5626 1.87868 21.1022 2.10217 21.5 2.5C21.8978 2.89782 22.1213 3.43739 22.1213 4C22.1213 4.56261 21.8978 5.10217 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z"
+                                                                stroke="#4743FF" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                        </svg></a>
+
+                                                    <%if(prods[i].status===true){%>
+
+                                                <td><a href="#confirmationPopUp"
+                                                        class="btn  rounded-0 remove-btn modalBTN" id="myAnchor"
+                                                        data-bs-toggle="modal" data-id="<%=prods[i]._id%>">REMOVE</a>
+                                                </td>
+                                                <%}else{%>
+                                                    <td><a href="/admin/product/delete/<%=prods[i]._id%>"
+                                                            class="btn  rounded-0 removed-btn">REMOVED</a></td>
+
+                                                    <%}%>
+
+
+                                                        <!-- <a href="/admin/product/delete/<%=prods[i]._id%>" class="btn btn-danger">Delete</a> -->
+                                                        </td>
+                                                        <%if(offerData && offerData.length>0) { %>
+                                                            <% if(prods[i].offerAppliedBy &&
+                                                                prods[i].offerAppliedBy=='category' ){ %>
+                                                                <td style="color: rgb(2, 206, 32);">category offer
+                                                                    applied
+                                                                    <button class="offerBtn"
+                                                                        style="border: 1px solid grey;" id="offerBtn"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#offerModal"
+                                                                        data-id="<%=prods[i]._id%>">
+
+                                                                        <i class="fa-solid fa-arrow-right-arrow-left"
+                                                                            style="color: #000000;background-color: aliceblue;"></i></button>
+                                                                </td>
+
+                                                                <% }else if(prods[i].offerAppliedBy &&
+                                                                    prods[i].offerAppliedBy=='product' ){ %>
+
+                                                                    <td>
+                                                                        <form
+                                                                            action="/admin/removeProductOffer/<%=prods[i]._id%>"
+                                                                            method="post" id="myForm">
+                                                                            <button class="btn" type="submit">
+                                                                                <span class="text-dark">
+                                                                                    <%=prods[i].offer.name%>
+                                                                                </span>
+                                                                                <i
+                                                                                    class="text-danger bi bi-x-square-fill h4"></i>
+                                                                            </button>
+
+                                                                        </form>
+
+                                                                    </td>
+                                                                    <% } else{%>
+                                                                        <td><button
+                                                                                class="btn btn-success rounded-0 offerProductBtn"
+                                                                                id="offerProductBtn"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#offerModal"
+                                                                                data-id="<%=prods[i]._id%>">APPLY</button>
+                                                                        </td>
+                                                                        <%}%>
+
+                                                                            <% } else{%>
+                                                                                <td>No offer Available</td>
+                                                                                <%}%>
+                                                                                    <!-- offerModel -->
+                                                                                    <div class="modal fade"  id="offerModal" tabindex="-1"
+                                                                                         aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                                                                                      
+                                                                                    <div class="modal-dialog">                   
+
+                                                                                       <div class="modal-content">
+
+                                                                                            <div  class="modal-header">
+                                                                                                
+                                                                                                    <h5 class="modal-title"  id="exampleModalLabel"> ADD OFFER</h5>
+                                                                                                   
+                                                                                                      <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                                                                                                    
+                                                                                                </div>
+                                                                                                <form  action="/admin/productOfferApply" method="post">
+                                                                                                   
+                                                                                                    <div class="modal-body">
+                                                                                                    
+                                                                                                        <input  type="hidden"  name="productId"  id="offerProductId">
+                                                                                                        <label for="offer">Select an offer to apply: </label>
+                                                                                                           
+                                                                                                        
+                                                                                                        <select name="offerId" id="offer"  class="form-control">
+                                                                                                           
+                                                                                                            <%
+                                                                                                                offerData.forEach((offer)=>
+                                                                                                                {
+                                                                                                                %>
+                                                                                                                <option
+                                                                                                                    value="<%=offer._id  %>">
+                                                                                                                    <%=offer.name
+                                                                                                                        %>
+                                                                                                                </option>
+                                                                                                                <% }) %>
+                                                                                                        </select>
+
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        
+                                                                                                        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                                                                                                            
+                                                                                                        <button type="submit"  class="btn btn-primary">ADD</button>
+                                                                                                            
+                                                                                                    </div>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- POPUP Modal Start  -->
+                                                                                    <div class="modal fade"
+                                                                                        id="confirmationPopUp"
+                                                                                        tabindex="-1"
+                                                                                        aria-labelledby="exampleModalLabel"
+                                                                                        aria-hidden="true">
+                                                                                        <div class="modal-dialog">
+                                                                                            <div class="modal-content">
+                                                                                                <div
+                                                                                                    class="modal-header">
+                                                                                                    <h1 class="modal-title fs-5"
+                                                                                                        id="exampleModalLabel">
+                                                                                                        Are You Sure?
+                                                                                                    </h1>
+                                                                                                    <button
+                                                                                                        type="button"
+                                                                                                        class="btn-close"
+                                                                                                        data-bs-dismiss="modal"
+                                                                                                        aria-label="Close"></button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    <strong> Do you want
+                                                                                                        to remove this
+                                                                                                        product
+                                                                                                        ?</strong>
+                                                                                                    <div
+                                                                                                        class="modal-footer mt-2">
+                                                                                                        <button
+                                                                                                            type="button"
+                                                                                                            class="btn btn-secondary"
+                                                                                                            data-bs-dismiss="modal">Close</button>
+                                                                                                        <a id="confirmBTN"
+                                                                                                            class="btn btn-primary">Confirm</a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- Modal End  -->
+                                        </tr>
+                                        <% } }else{%>
+                                            <tr>
+                                                <td>No data</td>
+                                            </tr>
+                                            <% } %>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </main>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    //
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/javascript/admin/products.js"></script>
+
+    <%- include('../includes/admin/adminFooter.ejs') %>

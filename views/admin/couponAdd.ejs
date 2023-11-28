@@ -1,0 +1,74 @@
+<%- include('../includes/admin/adminHead.ejs') %>
+    <link rel="stylesheet" href="/css/admin/heading.css ">
+    <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+    </head>
+
+    <body>
+        <%- include('../includes/admin/sidebar.ejs') %>
+            <main style="margin-top: 108px;">
+                <!-- <section class="vh-100"> -->
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-9 col-sm-12">
+                            <div class="shadow-2-strong">
+                                <div class="container">
+                                    <span class="heading">ADD COUPON</span>
+                                </div>
+                                <div class=" p-5 ">
+
+                                    <form action="/admin/addCoupon" method="post">
+                                        <div class="form-outline mb-3 row ">
+                                            <div class=" col-md-4 col-12 mb-3">
+                                                <label class="form-label" for="name">Name</label>
+                                                <input type="text" class="form-control form-control-md rounded-0"
+                                                    id="name" placeholder="Coupon Name" name="name" required />
+                                                <small style="color: red;">
+                                                    <%=locals.nameExists?nameExists:'' %>
+                                                </small>
+                                            </div>
+                                            <div class="col-md-8 col-12">
+                                                <label class="form-label" for="description">Description</label>
+                                                <input type="text" class="form-control form-control-md rounded-0"
+                                                    id="description" placeholder="Coupon Description" name="description"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="form-outline mb-3 row ">
+                                            <div class=" col-md-4 col-12 mb-3">
+                                                <label class="form-label" for="discount">Discount (₹)</label>
+                                                <input type="number" class="form-control form-control-md rounded-0"
+                                                    id="discount" placeholder="Discount" name="discount" min="0"
+                                                    required maxlength="2" min="1" />
+                                            </div>
+                                            <div class=" col-md-4 col-12 mb-3">
+                                                <label class="form-label" for="purchaseLimit">Purchase Limit</label>
+                                                <input type="number" class="form-control form-control-md rounded-0"
+                                                    id="purchaseLimit" placeholder="Min purchase" name="purchaseLimit"
+                                                    min="0" required />
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <label class="form-label" for="expiryDate">Expiry</label>
+                                                <input type="date" class="form-control form-control-md rounded-0"
+                                                    id="expiryDate" placeholder="Expiry date" name="expiryDate"
+                                                    required />
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button class="btn btn-md btn-dark rounded-0" type="submit">ADD
+                                                COUPON</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- </section> -->
+    </body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="/javascript/admin/coupon.js"></script>
+
+    <%- include('../includes/admin/adminFooter.ejs') %>
